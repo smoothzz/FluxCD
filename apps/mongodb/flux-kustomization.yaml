@@ -8,6 +8,6 @@ spec:
   path: "./apps/mongodb"
   sourceRef:
     kind: GitRepository
-    name: apps
+    name: flux-system
     namespace: flux-system
   prune: true
