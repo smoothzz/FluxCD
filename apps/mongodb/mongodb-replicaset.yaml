@@ -10,7 +10,7 @@ metadata:
   name: mongodb
   namespace: mongodb
 spec:
-  members: 3
+  members: 1 #members of cluster, in a prod enviroment recommended is 3.
   type: ReplicaSet
   version: 4.4.0
   security:
@@ -35,7 +35,7 @@ metadata:
   namespace: mongodb
 type: Opaque
 stringData:
-  password: ZTU3ZTdmZDA0MTI3OTllNTU5YjY3ODNlOTZmYjIzYzExNzBj
+  password: cGFzc3dvcmQ= #current password is 'password'
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
