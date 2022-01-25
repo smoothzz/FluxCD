@@ -10,7 +10,7 @@ spec:
       chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
-        name: monitoring
+        name: prometheus-community
       version: 30.2.0
   install:
     createNamespace: true
@@ -22,3 +22,4 @@ spec:
   storageNamespace: monitoring
   targetNamespace: monitoring
   values:
+    nameOverride: "monitoring"
