@@ -1,0 +1,86 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: testeapp
+  namespace: flux-system
+spec:
+  targetNamespace: testeapp
+  storageNamespace: testeapp
+  chart:
+    spec:
+      chart: basic-app
+      sourceRef:
+        kind: GitRepository
+        name: getupcloud
+        namespace: flux-system
+  dependsOn: []
+  install:
+    createNamespace: true
+    disableWait: true
+    remediation:
+      retries: -1
+  interval: 1m
+  values:
+    #####################################################################
+    #                      Porta do container                           #
+    #####################################################################
+    containerPort: 80
+    #####################################################################
+    #                             Deployment                            #
+    #####################################################################    
+    replicaCount: 3
+    image:
+      repository: nginxdemos/hello
+    #####################################################################
+    #                   Service Monitor = true or false                 #
+    #####################################################################
+    servicemonitor:
+      enable: false
+      #namespace: name
+      #matchNames: name
+      #interval: 60s
+      #path: /actuator/prometheus
+      #scrapeTimeout: 30s
+      #targetPort: 9000    
+    #####################################################################
+    #                   Service type and port                           #
+    #####################################################################
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 80
+    #####################################################################
+    #                   Ingress = true or false                         #
+    #####################################################################
+    ingress:
+      enabled: true
+      annotations:
+        # cert-manager.io/cluster-issuer: letsencrypt-production-http01
+      hosts:
+        - name: testeapp.example.com
+          path: /
+          pathType: ImplementationSpecific
+      # tls:
+      #   hosts: testeapp.example.com
+      secret:
+        enabled: false
+        secretName: testeapp-tls
+    #-----------------------------------------------------#
+    #                          Hpa                        #
+    #-----------------------------------------------------#
+    autoscaling:
+      enabled: false
+      #minReplicas: 1
+      #maxReplicas: 2
+      #targetCPUUtilizationPercentage: 80
+    #-----------------------------------------------------#
+    #                         Secret                      #
+    #-----------------------------------------------------#
+    secret:
+      enabled: false
+      #mountPath: ""
+      #data: {}
+    #-----------------------------------------------------#
+    #                 Variáveis de ambiente               #
+    #-----------------------------------------------------#
+    env:
