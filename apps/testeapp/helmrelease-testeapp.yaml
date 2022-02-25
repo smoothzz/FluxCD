@@ -10,7 +10,7 @@ spec:
     spec:
       chart: basic-app
       sourceRef:
-        kind: GitRepository
+        kind: HelmRepository
         name: getupcloud
         namespace: flux-system
   dependsOn: []
