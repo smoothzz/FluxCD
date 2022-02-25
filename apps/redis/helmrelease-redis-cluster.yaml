@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  annotations: {}
+  name: redis-cluster
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: ./redis-cluster
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  install:
+    createNamespace: true
+    disableWait: false
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: redis-cluster
+  storageNamespace: redis-cluster
+  targetNamespace: redis-cluster
+  values:
+    redisCluster:
+      redisSecret:
+        secretName: redis-secret
+        secretKey: password
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
