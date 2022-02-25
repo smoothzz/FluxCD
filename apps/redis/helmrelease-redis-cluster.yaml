@@ -23,6 +23,10 @@ spec:
   targetNamespace: redis-cluster
   values:
     redisCluster:
+      leader:
+        replicas: 1
+      follower:
+        replicas: 3
       redisSecret:
         secretName: redis-secret
         secretKey: password
