@@ -5,7 +5,7 @@ resources:
 - gotk-sync.yaml
 # - ../../apps/cert-manager/flux-kustomization.yaml
 #- ../../apps/mongodb/flux-kustomization.yaml
-- ../../apps/monitoring/flux-kustomization.yaml
+#- ../../apps/monitoring/flux-kustomization.yaml
 #- ../../apps/keda/flux-kustomization.yaml
 #- ../../apps/testeapp/flux-kustomization.yaml
 #- ../../apps/redis-operator/flux-kustomization.yaml
